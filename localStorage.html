@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+    	function onLoad(){
+    		document.getElementById("textarea").value = window.localStorage.getItem('value');
+    	}
+    	
+    	function save() {
+    	  window.localStorage.setItem('value', document.getElementById("textarea").value);
+    	  window.localStorage.setItem('timestamp', (new Date()).getTime());
+    	}
+
+    </script>
+  </head>
+  <body onload="onLoad()">
+	  <input id="textarea" value=""></input>
+	  <button id="saveButton" onClick="save();">Guardar</button>
+  </body>
+</html>
