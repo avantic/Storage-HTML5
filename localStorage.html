@@ -2,13 +2,33 @@
 <html>
   <head>
     <script>
+    	var resultList;
+    
     	function onLoad(){
-    		document.getElementById("textarea").value = window.localStorage.getItem('value');
+    		 resultList= JSON.parse(window.localStorage.getItem('value'));
+    		 showResults();
+    	}
+    	
+    	function showResults() {
+    		if (resultList != null) {
+    			document.getElementById("results").innerHTML = "";
+	    		 var i;
+	    		 for(i=0; i < resultList.length; i++) {
+	    		 	document.getElementById("results").innerHTML += resultList[i] + "<br>"; 
+	    		 }
+   		 	}
     	}
     	
     	function save() {
-    	  window.localStorage.setItem('value', document.getElementById("textarea").value);
+    	  if (resultList == null)
+    		  resultList = new Array();
+    	  
+    	  resultList.push(document.getElementById("textarea").value);
+    	  
+    	  window.localStorage.setItem('value', JSON.stringify(resultList));
     	  window.localStorage.setItem('timestamp', (new Date()).getTime());
+    	  
+    	  showResults();
     	}
 
     </script>
@@ -16,5 +36,7 @@
   <body onload="onLoad()">
 	  <input id="textarea" value=""></input>
 	  <button id="saveButton" onClick="save();">Guardar</button>
+	  <br>
+  	  <span id="results"></span>
   </body>
 </html>
